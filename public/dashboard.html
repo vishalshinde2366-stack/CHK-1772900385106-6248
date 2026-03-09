@@ -1,0 +1,21 @@
+<h2>Artisan Dashboard</h2>
+
+<input id="pname" placeholder="Product name">
+<input id="price" placeholder="Price">
+<input id="desc" placeholder="Description">
+
+<button onclick="addProduct()">Add Product</button>
+
+<script>
+function addProduct(){
+fetch("/api/products/add",{
+method:"POST",
+headers:{'Content-Type':'application/json'},
+body:JSON.stringify({
+name:pname.value,
+price:price.value,
+description:desc.value
+})
+}).then(res=>res.text()).then(alert)
+}
+</script>
