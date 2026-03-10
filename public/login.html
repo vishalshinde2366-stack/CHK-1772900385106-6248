@@ -1,148 +1,9 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
-
 <html>
 
 <head>
 
-<title>Login</title>
-
-<style>
-
-body{
-font-family:Arial;
-background:#d9c8ae;
-display:flex;
-justify-content:center;
-align-items:center;
-height:100vh;
-margin:0;
-}
-
-.container{
-background:white;
-padding:40px;
-width:350px;
-border-radius:10px;
-box-shadow:0 5px 15px rgba(0,0,0,0.2);
-text-align:center;
-}
-
-input{
-width:100%;
-padding:10px;
-margin:10px 0;
-border:1px solid #ccc;
-border-radius:5px;
-}
-
-button{
-background:#7b4b2a;
-color:white;
-border:none;
-padding:12px;
-width:100%;
-cursor:pointer;
-font-size:16px;
-border-radius:5px;
-}
-
-button:hover{
-background:#5e3820;
-}
-
-</style>
-
-</head>
-
-<body>
-
-<div class="container">
-
-<h2>Login</h2>
-
-<form onsubmit="login(event)">
-
-<input id="email" type="email" placeholder="Email" required>
-
-<input id="password" type="password" placeholder="Password" required>
-
-<button type="submit">Login</button>
-
-</form>
-
-<p style="margin-top:15px;">
-Don't have an account?
-<a href="signup.html">Sign Up</a>
-</p>
-
-</div>
-
-<script>
-
-async function login(e){
-
-e.preventDefault();
-
-const email = document.getElementById("email").value;
-const password = document.getElementById("password").value;
-
-const res = await fetch("http://localhost:5000/api/auth/login",{
-
-method:"POST",
-
-headers:{
-"Content-Type":"application/json"
-},
-
-body:JSON.stringify({
-email,
-password
-})
-
-});
-
-const data = await res.json();
-
-if(res.status !== 200){
-
-alert(data.message);
-return;
-
-}
-
-localStorage.setItem("userId", data.userId);
-localStorage.setItem("role", data.role);
-localStorage.setItem("name", data.name);
-
-alert("Login successful");
-
-
-if(data.role === "artisan"){
-
-window.location = "artisan.html";
-
-}else{
-
-window.location = "customer.html";
-
-}
-
-}
-
-</script>
-
-</body>
-
-</html>
-=======
-<!DOCTYPE html>
-
-<html>
-
-<head>
-
-<title>Login - Craft-Kart</title>
+<title>Login - CraftKart</title>
 
 <link rel="stylesheet"
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -191,17 +52,7 @@ top:50%;
 transform:translateY(-50%);
 cursor:pointer;
 color:#7b4b2a;
-transition:all 0.25s ease;
 font-size:16px;
-}
-
-.eyeIcon:hover{
-color:#5e3a20;
-transform:translateY(-50%) scale(1.15);
-}
-
-.eyeIcon.animate{
-transform:translateY(-50%) rotate(180deg);
 }
 
 button{
@@ -228,14 +79,13 @@ background:#5e3a20;
 
 <h2>Login</h2>
 
-<form id="loginForm" autocomplete="off">
+<form id="loginForm">
 
 <input
 type="email"
 id="email"
 placeholder="Email"
 required
-
 >
 
 <div class="passwordBox">
@@ -245,7 +95,6 @@ type="password"
 id="password"
 placeholder="Password"
 required
-
 >
 
 <i class="fa-solid fa-eye-slash eyeIcon"
@@ -258,6 +107,11 @@ id="toggleEye"></i>
 
 </form>
 
+<p>
+Don't have an account?
+<a href="signup.html">Sign Up</a>
+</p>
+
 </div>
 
 <script>
@@ -267,28 +121,17 @@ function togglePassword(){
 const password = document.getElementById("password");
 const eye = document.getElementById("toggleEye");
 
-eye.classList.add("animate");
-
-setTimeout(()=>{
-eye.classList.remove("animate");
-},200);
-
 if(password.type === "password"){
-
 password.type = "text";
 eye.classList.remove("fa-eye-slash");
 eye.classList.add("fa-eye");
-
 }else{
-
 password.type = "password";
 eye.classList.remove("fa-eye");
 eye.classList.add("fa-eye-slash");
-
 }
 
 }
-
 
 document
 .getElementById("loginForm")
@@ -299,7 +142,7 @@ e.preventDefault();
 const email = document.getElementById("email").value;
 const password = document.getElementById("password").value;
 
-const res = await fetch("/api/auth/login",{
+const res = await fetch("http://localhost:5000/api/auth/login",{
 
 method:"POST",
 
@@ -308,30 +151,32 @@ headers:{
 },
 
 body:JSON.stringify({
-email:email,
-password:password
+email,
+password
 })
 
 });
 
-const user = await res.json();
+const data = await res.json();
 
-if(!user || !user.role){
+if(!data || !data.role){
 
-alert("Invalid login");
+alert(data.message || "Invalid login");
 return;
 
 }
 
-localStorage.setItem("userId",user._id);
-localStorage.setItem("name",user.name);
-localStorage.setItem("role",user.role);
+localStorage.setItem("userId",data.userId);
+localStorage.setItem("name",data.name);
+localStorage.setItem("role",data.role);
 
-if(user.role==="customer"){
+alert("Login successful");
+
+if(data.role==="customer"){
 window.location="customer.html";
 }
 
-else if(user.role==="artisan"){
+else if(data.role==="artisan"){
 window.location="artisan.html";
 }
 
@@ -339,8 +184,5 @@ window.location="artisan.html";
 
 </script>
 
-
-
 </body>
 </html>
->>>>>>> d28b42e3fe3e0919501cd28ee7685f10db97edd1
