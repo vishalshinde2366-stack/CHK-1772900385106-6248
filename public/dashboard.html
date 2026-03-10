@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>Artisan Dashboard</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+body{
+font-family:Arial;
+text-align:center;
+background:#d9c8ae;
+margin-top:80px;
+}
+
+h1{
+margin-bottom:40px;
+}
+
+.container{
+display:grid;
+grid-template-columns:repeat(2,260px);
+justify-content:center;
+gap:40px;
+}
+
+.card{
+height:200px;
+border-radius:8px;
+box-shadow:0 6px 15px rgba(0,0,0,0.25);
+cursor:pointer;
+transition:0.3s;
+position:relative;
+color:white;
+font-size:22px;
+font-weight:bold;
+overflow:hidden;
+}
+
+.card:hover{
+transform:translateY(-10px) scale(1.05);
+box-shadow:0 12px 25px rgba(0,0,0,0.35);
+}
+
+/* Add Product image */
+
+.addproduct{
+background-image:url("https://cdn-icons-png.flaticon.com/512/1041/1041916.png");
+background-repeat:no-repeat;
+background-size:120px;
+background-position:center;
+background-color:#8b7b65;
+}
+
+/* My Products artisan style sketch */
+
+.myproducts{
+background-image:url("https://cdn-icons-png.flaticon.com/512/2917/2917995.png");
+background-repeat:no-repeat;
+background-size:120px;
+background-position:center;
+background-color:#7a5a3a;
+}
+
+.overlay{
+position:absolute;
+bottom:10px;
+width:100%;
+text-align:center;
+font-size:20px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Artisan Dashboard</h1>
+
+<div class="container">
+
+<div class="card addproduct" onclick="location.href='add-product.html'">
+
+<div class="overlay">
+Add Product
+</div>
+
+</div>
+
+<div class="card myproducts" onclick="location.href='artisan-products.html'">
+
+<div class="overlay">
+My Products
+</div>
+
+</div>
+
+</div>
+
+
+</body>
+
+</html>

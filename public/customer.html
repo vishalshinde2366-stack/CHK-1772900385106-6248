@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>Customer Panel</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+body{
+font-family:Arial;
+text-align:center;
+background:#d9c8ae;
+margin-top:80px;
+}
+
+/* Heading */
+
+h1{
+font-size:38px;
+margin-bottom:40px;
+position:relative;
+display:inline-block;
+}
+
+h1::after{
+content:"";
+width:140px;
+height:4px;
+background:#7b0000;
+display:block;
+margin:10px auto 0;
+border-radius:3px;
+}
+
+/* Grid layout */
+
+.row1{
+display:grid;
+grid-template-columns:repeat(3,220px);
+justify-content:center;
+gap:30px;
+margin-bottom:30px;
+}
+
+.row2{
+display:grid;
+grid-template-columns:repeat(2,220px);
+justify-content:center;
+gap:30px;
+}
+
+/* Card style */
+
+.card{
+
+height:180px;
+background:white;
+border-radius:10px;
+box-shadow:0 6px 15px rgba(0,0,0,0.25);
+
+cursor:pointer;
+
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+
+transition:0.3s;
+
+}
+
+.card:hover{
+
+transform:translateY(-10px) scale(1.05);
+box-shadow:0 12px 25px rgba(0,0,0,0.35);
+
+}
+
+.card img{
+width:70px;
+margin-bottom:15px;
+}
+
+.card h3{
+margin:0;
+color:#7b0000;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Customer Panel</h1>
+
+<!-- First Row -->
+
+<div class="row1">
+
+<div class="card" onclick="location.href='products.html'">
+
+<img src="https://cdn-icons-png.flaticon.com/512/1170/1170678.png">
+
+<h3>View Products</h3>
+
+</div>
+
+<div class="card" onclick="location.href='cart.html'">
+
+<img src="https://cdn-icons-png.flaticon.com/512/263/263142.png">
+
+<h3>Cart</h3>
+
+</div>
+
+<div class="card" onclick="location.href='orders.html'">
+
+<img src="https://cdn-icons-png.flaticon.com/512/3144/3144456.png">
+
+<h3>My Orders</h3>
+
+</div>
+
+</div>
+
+<!-- Second Row -->
+
+<div class="row2">
+
+<div class="card" onclick="location.href='customer-profile.html'">
+
+<img src="https://cdn-icons-png.flaticon.com/512/1077/1077114.png">
+
+<h3>Profile</h3>
+
+</div>
+
+<div class="card" onclick="logout()">
+
+<img src="https://cdn-icons-png.flaticon.com/512/1828/1828479.png">
+
+<h3>Logout</h3>
+
+</div>
+
+</div>
+
+<script>
+
+function logout(){
+
+localStorage.clear();
+
+window.location="login.html";
+
+}
+
+</script>
+
+</body>
+
+</html>

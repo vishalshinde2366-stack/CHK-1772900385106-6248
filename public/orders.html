@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>My Orders</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+body{
+font-family:Arial;
+background:#d9c8ae;
+text-align:center;
+}
+
+#orders{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+margin-top:30px;
+}
+
+.orderCard{
+
+background:white;
+width:250px;
+margin:15px;
+padding:15px;
+
+border-radius:8px;
+box-shadow:0 4px 10px rgba(0,0,0,0.2);
+
+}
+
+.orderCard img{
+width:150px;
+height:150px;
+object-fit:cover;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>My Orders</h1>
+
+<div id="orders"></div>
+
+<script>
+
+fetch("/api/orders")
+
+.then(res=>res.json())
+
+.then(data=>{
+
+const container = document.getElementById("orders");
+
+container.innerHTML="";
+
+data.forEach(order=>{
+
+container.innerHTML += `
+
+<div class="orderCard">
+
+<img src="/uploads/${order.productImage}">
+
+<h3>${order.productName}</h3>
+
+<p>Price: ₹${order.price}</p>
+
+<p>Quantity: ${order.quantity}</p>
+
+<p>Seller: ${order.artisanName}</p>
+
+</div>
+
+`;
+
+});
+
+});
+
+</script>
+
+</body>
+
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+<title>Artisan Profile</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+body{
+font-family:Arial;
+text-align:center;
+margin-top:100px;
+}
+
+.info{
+margin:20px;
+font-size:18px;
+}
+
+button{
+padding:10px 20px;
+background:#7b0d0d;
+color:white;
+border:none;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Artisan Profile</h1>
+
+<div class="info">
+Name: <span id="name"></span>
+</div>
+
+<div class="info">
+Artisan ID: <span id="userid"></span>
+</div>
+
+<button onclick="location.href='artisan-products.html'">
+My Products
+</button>
+
+<button onclick="location.href='artisan-orders.html'">
+View Orders
+</button>
+
+<button onclick="logout()">
+Logout
+</button>
+
+<script>
+
+document.getElementById("name").innerText =
+localStorage.getItem("name");
+
+document.getElementById("userid").innerText =
+localStorage.getItem("userId");
+
+function logout(){
+
+localStorage.clear();
+window.location = "login.html";
+
+}
+
+</script>
+
+
+
+</body>
+</html>

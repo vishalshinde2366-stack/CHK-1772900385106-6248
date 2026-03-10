@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>My Products</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+body{
+font-family:Arial;
+text-align:center;
+}
+
+#products{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+}
+
+.card{
+background:white;
+border:1px solid #ccc;
+margin:10px;
+padding:15px;
+width:220px;
+box-shadow:2px 2px 10px rgba(0,0,0,0.1);
+}
+
+.card img{
+margin-bottom:10px;
+}
+
+button{
+background:red;
+color:white;
+border:none;
+padding:8px;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>My Products</h1>
+
+<div id="products"></div>
+
+<script>
+
+const artisanId = localStorage.getItem("userId");
+
+fetch("/api/products")
+
+.then(res=>res.json())
+
+.then(data=>{
+
+const myProducts = data.filter(p => p.artisanId === artisanId);
+
+displayProducts(myProducts);
+
+});
+
+function displayProducts(products){
+
+const container = document.getElementById("products");
+
+container.innerHTML="";
+
+products.forEach(p=>{
+
+container.innerHTML += `
+
+<div class="card">
+
+<img src="/uploads/${p.image}" width="150">
+
+<h3>${p.name}</h3>
+
+<p>Price ₹${p.price}</p>
+
+<p>${p.description}</p>
+
+<button onclick="deleteProduct('${p._id}')">
+Delete Product
+</button>
+
+</div>
+
+`;
+
+});
+
+}
+
+function deleteProduct(id){
+
+fetch("/api/products/"+id,{
+
+method:"DELETE"
+
+})
+
+.then(res=>res.text())
+
+.then(msg=>{
+
+alert(msg);
+
+location.reload();
+
+});
+
+}
+
+</script>
+
+</body>
+
+</html>

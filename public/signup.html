@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Signup</title>
+
+<style>
+
+body{
+font-family: Arial;
+background:#d9c8ae;
+display:flex;
+justify-content:center;
+align-items:center;
+height:100vh;
+margin:0;
+}
+
+.container{
+background:white;
+padding:40px;
+width:350px;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,0.2);
+text-align:center;
+}
+
+h2{
+margin-bottom:5px;
+}
+
+.subtitle{
+color:gray;
+font-size:14px;
+margin-bottom:20px;
+}
+
+input,select{
+width:100%;
+padding:10px;
+margin:10px 0;
+border:1px solid #ccc;
+border-radius:5px;
+font-size:14px;
+}
+
+button{
+background:#7b4b2a;
+color:white;
+border:none;
+padding:12px;
+width:100%;
+cursor:pointer;
+font-size:16px;
+border-radius:5px;
+}
+
+button:hover{
+background:#5e3820;
+}
+
+a{
+color:#7b4b2a;
+text-decoration:none;
+font-weight:bold;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Create Account</h2>
+<p class="subtitle">Join CraftKart to buy or sell handmade products</p>
+
+<form id="signupForm">
+
+<input id="name" placeholder="Name" required>
+
+<input id="email" type="email" placeholder="Email" required>
+
+<input id="password" type="password" placeholder="Password" required>
+
+<select id="role">
+<option value="customer">Customer</option>
+<option value="artisan">Artisan</option>
+</select>
+
+<button type="submit">Sign Up</button>
+
+</form>
+
+<p style="margin-top:15px;">
+Already have an account?
+<a href="login.html">Login</a>
+</p>
+
+</div>
+
+<script>
+
+document.getElementById("signupForm").addEventListener("submit", signup);
+
+async function signup(e){
+
+e.preventDefault();
+
+const name = document.getElementById("name").value;
+const email = document.getElementById("email").value;
+const password = document.getElementById("password").value;
+const role = document.getElementById("role").value;
+
+try{
+
+const res = await fetch("http://localhost:5000/api/auth/signup",{
+method:"POST",
+headers:{
+"Content-Type":"application/json"
+},
+body:JSON.stringify({
+name,
+email,
+password,
+role
+})
+});
+
+const data = await res.json();
+
+alert(data.message);
+
+if(res.ok){
+document.getElementById("signupForm").reset();
+window.location.href = "login.html";
+}
+
+}catch(error){
+
+console.error(error);
+alert("Server error. Please try again.");
+
+}
+
+}
+
+</script>
+
+</body>
+</html>

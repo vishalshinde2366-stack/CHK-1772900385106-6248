@@ -1,0 +1,97 @@
+body{
+font-family: Arial;
+margin:0;
+text-align:center;
+background:#e8d8c3;
+}
+
+/* top navigation buttons */
+
+.topButtons{
+position:absolute;
+top:20px;
+right:30px;
+}
+
+.topButtons button{
+padding:8px 16px;
+margin-left:10px;
+background:#7b4b2a;
+color:white;
+border:none;
+cursor:pointer;
+border-radius:4px;
+}
+
+.topButtons button:hover
+
+/* center box used on many pages */
+
+.centerBox{
+display:inline-block;
+padding:40px 80px;
+background:rgba(255,255,255,0.9);
+border-radius:12px;
+box-shadow:0 6px 20px rgba(0,0,0,0.2);
+margin-top:120px;
+}
+
+/* main title */
+
+.mainTitle{
+font-size:44px;
+color:#6b3e1f;
+margin:0;
+letter-spacing:2px;
+}
+
+/* tagline */
+
+.tagline{
+margin-top:25px;
+font-size:22px;
+color:#7b4b2a;
+font-weight:600;
+letter-spacing:1px;
+}
+
+.tagline::before,
+.tagline::after{
+content:"";
+display:inline-block;
+width:70px;
+height:2px;
+background:#7b4b2a;
+margin:0 12px;
+vertical-align:middle;
+}
+
+/* buttons */
+
+.mainButton{
+padding:10px 20px;
+background:#7b4b2a;
+color:white;
+border:none;
+cursor:pointer;
+border-radius:4px;
+}
+
+.mainButton:hover
+
+/* footer */
+
+.footer{
+position:fixed;
+bottom:0;
+width:100%;
+background:#6b3e1f;
+color:white;
+padding:15px;
+font-size:14px;
+}
+
+.footer a{
+color:#ffd28c;
+text-decoration:none;
+}

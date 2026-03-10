@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<title>Payment</title>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<style>
+
+body{
+font-family:Arial;
+background:#d9c8ae;
+text-align:center;
+}
+
+.container{
+background:white;
+width:350px;
+margin:100px auto;
+padding:30px;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+button{
+background:#7b4b2a;
+color:white;
+border:none;
+padding:12px 20px;
+margin:10px;
+cursor:pointer;
+font-size:16px;
+}
+
+button:hover{
+background:#5e3820;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<h2>Choose Payment Method</h2>
+
+<div id="productInfo"></div>
+
+<button onclick="payCOD()">Cash On Delivery</button>
+
+<button onclick="payOnline()">Pay Online</button>
+
+</div>
+
+<script>
+
+const product = JSON.parse(localStorage.getItem("selectedProduct"));
+
+document.getElementById("productInfo").innerHTML = `
+<h3>${product.name}</h3>
+<p>Price: ₹${product.price}</p>
+`;
+
+
+/* ---------------- COD ---------------- */
+
+function payCOD(){
+
+fetch("/api/orders",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+productName:product.name,
+productImage:product.image,
+price:product.price,
+quantity:1,
+
+artisanName:product.artisanName,
+artisanId:product.artisanId,
+
+customerId:localStorage.getItem("userId"),
+
+paymentMethod:"COD"
+
+})
+
+})
+
+.then(res=>res.json())
+
+.then(data=>{
+
+alert("Order placed with Cash On Delivery");
+
+window.location="orders.html";
+
+});
+
+}
+
+
+
+/* ---------------- ONLINE PAYMENT ---------------- */
+
+function payOnline(){
+
+fetch("/create-order",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+amount:product.price
+
+})
+
+})
+
+.then(res=>res.json())
+
+.then(order=>{
+
+var options = {
+
+key:"rzp_test_SPZXZgTKtMhLAf",
+
+amount:order.amount,
+
+currency:"INR",
+
+name:"CraftKart",
+
+description:"Product Purchase",
+
+order_id:order.id,
+
+handler:function(response){
+
+saveOnlineOrder();
+
+},
+
+theme:{
+color:"#7b4b2a"
+}
+
+};
+
+var rzp = new Razorpay(options);
+
+rzp.open();
+
+});
+
+}
+
+
+
+/* ---------------- SAVE ONLINE ORDER ---------------- */
+
+function saveOnlineOrder(){
+
+fetch("/api/orders",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+productName:product.name,
+productImage:product.image,
+price:product.price,
+quantity:1,
+
+artisanName:product.artisanName,
+artisanId:product.artisanId,
+
+customerId:localStorage.getItem("userId"),
+
+paymentMethod:"Razorpay"
+
+})
+
+})
+
+.then(res=>res.json())
+
+.then(data=>{
+
+alert("Payment Successful!");
+
+window.location="orders.html";
+
+});
+
+}
+
+</script>
+
+</body>
+
+</html>

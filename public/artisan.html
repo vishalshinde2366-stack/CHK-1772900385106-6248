@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>Artisan Panel</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+body{
+font-family:Arial;
+text-align:center;
+background:#d9c8ae;
+margin-top:80px;
+}
+
+h1{
+margin-bottom:40px;
+}
+
+.container{
+display:grid;
+grid-template-columns:repeat(4,220px);
+justify-content:center;
+gap:25px;
+}
+
+.card{
+
+height:180px;
+background:white;
+border-radius:8px;
+box-shadow:0 6px 15px rgba(0,0,0,0.2);
+cursor:pointer;
+transition:0.3s;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+
+}
+
+.card:hover{
+
+transform:translateY(-8px) scale(1.05);
+box-shadow:0 10px 20px rgba(0,0,0,0.3);
+
+}
+
+.card img{
+
+width:70px;
+margin-bottom:15px;
+
+}
+
+.card h3{
+
+margin:0;
+color:#7b0000;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Artisan Panel</h1>
+
+<div class="container">
+
+<div class="card" onclick="location.href='dashboard.html'">
+
+<img src="https://cdn-icons-png.flaticon.com/512/1828/1828673.png">
+
+<h3>Dashboard</h3>
+
+</div>
+
+<div class="card" onclick="location.href='orders.html'">
+
+<img src="https://cdn-icons-png.flaticon.com/512/3144/3144456.png">
+
+<h3>View Orders</h3>
+
+</div>
+
+<div class="card" onclick="location.href='artisan-profile.html'">
+
+<img src="https://cdn-icons-png.flaticon.com/512/1077/1077114.png">
+
+<h3>Profile</h3>
+
+</div>
+
+<div class="card" onclick="logout()">
+
+<img src="https://cdn-icons-png.flaticon.com/512/1828/1828479.png">
+
+<h3>Logout</h3>
+
+</div>
+
+</div>
+
+<script>
+
+function logout(){
+
+localStorage.clear();
+window.location="login.html";
+
+}
+
+</script>
+
+
+
+</body>
+
+</html>

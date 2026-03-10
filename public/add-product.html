@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>Add Product</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+body{
+font-family:Arial;
+text-align:center;
+margin-top:100px;
+}
+
+input,textarea{
+display:block;
+margin:10px auto;
+padding:10px;
+width:250px;
+}
+
+button{
+padding:10px 20px;
+background:#7b0d0d;
+color:white;
+border:none;
+cursor:pointer;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h2>Add Product</h2>
+
+<form id="productForm" enctype="multipart/form-data">
+
+<input
+type="text"
+name="name"
+placeholder="Product Name"
+required
+
+>
+
+<input
+type="number"
+name="price"
+placeholder="Price"
+required
+
+>
+
+<textarea
+name="description"
+placeholder="Product Description"
+></textarea>
+
+<input
+type="file"
+name="image"
+required
+
+>
+
+<button type="submit">
+Add Product
+</button>
+
+</form>
+
+<script>
+
+const artisanId = localStorage.getItem("userId");
+const artisanName = localStorage.getItem("name");
+
+document
+.getElementById("productForm")
+.addEventListener("submit", async function(e){
+
+e.preventDefault();
+
+const formData = new FormData(this);
+
+formData.append("artisanId", artisanId);
+formData.append("artisanName", artisanName);
+
+const res = await fetch("/api/products/add",{
+
+method:"POST",
+body:formData
+
+});
+
+const msg = await res.text();
+
+alert(msg);
+
+});
+
+</script>
+
+</body>
+</html>

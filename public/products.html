@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<title>Products</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+body{
+font-family:Arial;
+background:#d9c8ae;
+text-align:center;
+}
+
+h1{
+margin-top:40px;
+}
+
+#searchBox{
+padding:10px;
+width:250px;
+margin:20px;
+border-radius:5px;
+border:1px solid gray;
+}
+
+#products{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:30px;
+padding:20px;
+}
+
+.productCard{
+background:white;
+border-radius:8px;
+padding:20px;
+width:220px;
+box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+.productCard img{
+width:180px;
+height:180px;
+object-fit:cover;
+margin-bottom:10px;
+}
+
+button{
+background:#7b4b2a;
+color:white;
+border:none;
+padding:10px 18px;
+cursor:pointer;
+margin-top:10px;
+}
+
+button:hover{
+background:#5e3820;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>Products</h1>
+
+<input
+type="text"
+id="searchBox"
+placeholder="Search products..."
+onkeyup="searchProducts()"
+/>
+
+<div id="products"></div>
+
+<script>
+
+let allProducts = [];
+
+
+/* FETCH PRODUCTS */
+
+fetch("/api/products")
+
+.then(res => res.json())
+
+.then(data => {
+
+allProducts = data;
+
+displayProducts(allProducts);
+
+});
+
+
+/* DISPLAY PRODUCTS */
+
+function displayProducts(products){
+
+const container = document.getElementById("products");
+
+container.innerHTML="";
+
+products.forEach(p => {
+
+container.innerHTML += `
+
+<div class="productCard">
+
+<img src="/uploads/${p.image}">
+
+<h3>${p.name}</h3>
+
+<p>Price: ₹${p.price}</p>
+
+<p>${p.description}</p>
+
+<p>Seller: ${p.artisanName || "Local Artisan"}</p>
+
+<button onclick='buyNow(${JSON.stringify(p)})'>
+Buy Now
+</button>
+
+</div>
+
+`;
+
+});
+
+}
+
+
+/* SEARCH PRODUCTS */
+
+function searchProducts(){
+
+const keyword = document
+.getElementById("searchBox")
+.value
+.toLowerCase();
+
+const filtered = allProducts.filter(product =>
+
+product.name.toLowerCase().includes(keyword)
+
+);
+
+displayProducts(filtered);
+
+}
+
+
+/* BUY NOW FUNCTION */
+
+function buyNow(product){
+
+localStorage.setItem("selectedProduct", JSON.stringify(product));
+
+window.location.href="payment.html";
+
+}
+
+</script>
+
+</body>
+
+</html>
